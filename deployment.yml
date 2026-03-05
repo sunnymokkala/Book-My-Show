@@ -2,20 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: bms-app
-  labels:
-    app: bms
+  namespace: akash-ns
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      app: bms
+      app: bms-app
   template:
     metadata:
       labels:
-        app: bms
+        app: bms-app
     spec:
       containers:
       - name: bms-container
-        image: kastrov/bms:latest  # Replace with your Docker image
+        image: akash/bms-app:v1
         ports:
-        - containerPort: 3000  # Replace with the port your app runs on
+        - containerPort: 3000
