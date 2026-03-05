@@ -1,13 +1,13 @@
 apiVersion: v1
-kind: Service
+kind: Service 
 metadata:
   name: bms-service
-  labels:
-    app: bms
+  namespace: akash-ns
 spec:
-  type: LoadBalancer
-  ports:
-  - port: 80
-    targetPort: 3000  # Replace with the port your app runs on
   selector:
-    app: bms
+    app: bms-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000 # container port, it should be same as container port defined in deployment.yaml
+  type: LoadBalancer
