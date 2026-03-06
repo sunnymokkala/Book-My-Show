@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: bms-container
-        image: akash/bms-app:v1
+        image: mokkalaakashreddy/bms-app:v1
         ports:
         - containerPort: 3000
