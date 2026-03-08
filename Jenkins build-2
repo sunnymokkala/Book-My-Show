@@ -1,0 +1,33 @@
+pipeline {
+   agent any
+ 
+   stages {
+ 
+       stage('Checkout Code') {
+           steps {
+               git branch: 'feature', url: ‘https://github.com/sunnymokkala/Book-My-Show.git’
+               sh 'ls -la'
+           }
+       }
+       stage('Docker Build & Push') {
+              steps{
+               script{
+                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
+                     sh 'docker build -t bms-app:v1 bookmyshow-app'
+                     sh 'docker tag bms-app:v1. mokkalaakashreddy/bms-app:v1'
+                     sh 'docker push mokkalaakashreddy/bms-app:v1'
+                  }
+               }
+           }
+       }
+       stage('Deploy Container') {
+           steps {
+               sh '''
+               docker stop bms || true
+               docker rm bms || true
+               docker run -d --name bms -p 3000:3000 mokkalaakashreddy/bms-app:v1
+               '''
+           }
+       }
+   }
+}
