@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bms-app
+  namespace: akash-ns
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bms-app
+  template:
+    metadata:
+      labels:
+        app: bms-app
+    spec:
+      containers:
+      - name: bms-container
+        image: mokkalaakashreddy/bms-app:v1
+        ports:
+        - containerPort: 3000
